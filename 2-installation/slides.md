@@ -1,8 +1,8 @@
-%title: Terraform
+%title: PACKER
 %author: xavki
 
 
-# Terraform : installation
+# Packer : installation
 
 
 <br>

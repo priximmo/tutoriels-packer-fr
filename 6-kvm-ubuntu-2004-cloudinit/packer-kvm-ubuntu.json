@@ -3,28 +3,24 @@
   "builders": [
       {
           "type": "qemu",
-          "iso_checksum": "0197e12035a12ff73b7f335f184aca461c3afb6468333e5c90cf3adfacf79b56",
-          "iso_url": "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img",
-          "disk_size": "8192",
+          "iso_checksum": "{{user `iso_checksum`}}",
+          "iso_url": "{{user `iso_url`}}",
+          "disk_size": "{{user `disk_size`}}",
           "disk_image": true,
           "format": "qcow2",
           "disk_compression": true,
           "headless": true,
           "output_directory": "output-ubuntu",
-          "shutdown_command": "echo 'ubuntu'|sudo -S shutdown -P now",
-          "ssh_password": "ubuntu",
-          "ssh_username": "ubuntu",
-          "ssh_timeout": "20m",
+          "shutdown_command": "echo '{{user `ssh_password`}}' | sudo -t -S /sbin/shutdown -P now",
+          "ssh_password": "{{user `ssh_password`}}",
+          "ssh_timeout": "45m",
+          "ssh_username": "{{user `ssh_username`}}",
           "ssh_pty": true,
           "ssh_handshake_attempts": "20",
-          "vm_name": "ubuntu2004",
+          "vm_name": "{{user `name`}}{{user `version`}}.qcow2",
           "accelerator": "kvm",
           "use_default_display": true,
           "qemuargs": [
-              [
-                  "-m",
-                  "4096"
-              ],
               [
                   "-display",
                   "gtk"
@@ -38,8 +34,12 @@
                   "host"
               ],
               [
-                  "-smp",
-                  "cpus=4"
+                "-m",
+                "{{user `ram`}}M"
+              ],
+              [
+                "-smp",
+                "{{user `cpu`}}"
               ],
               [
                   "-fda",
@@ -53,11 +53,28 @@
       }
   ],
   "provisioners": [
-      {
-          "type": "shell",
-          "inline": [
-              "ls /"
-          ]
-      }
-  ]
+    {
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "sudo apt update 2>&1 >/dev/null",
+        "sudo apt -qq -y install software-properties-common git ansible 2>&1 >/dev/null",
+        "sed -i s/ens3/enp1s0/g /etc/netplan/50-cloud-init.yaml"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "cpu": "2",
+    "disk_size": "40000",
+    "ram": "2048",
+    "domain": "local",
+    "hostname": "xavki",
+    "iso_checksum": "97f588e8ead65ddaf238c70f970a320f8806fa239b870e9217f3d1a8f9c6c13d",
+    "iso_url": "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img",
+    "name": "ubuntu",
+    "version": "2004",
+    "ssh_password": "ubuntu",
+    "ssh_username": "ubuntu"
+  }
+
 }

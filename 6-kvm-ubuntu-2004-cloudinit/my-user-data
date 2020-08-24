@@ -3,26 +3,11 @@ password: ubuntu
 ssh_pwauth: true
 chpasswd:
   expire: false
-locale: fr_FR
-keyboard:
-  layout: fr
-  variant: fr
-storage:
-  layout:
-    name: lvm
-  config:
-    - type: disk
-      id: disk0
-      match:
-        size: largest
-    - type: partition
-      id: boot-partition
-      device: disk0
-      size: 500M
-    - type: partition
-      id: root-partition
-      device: disk0
-      size: -1
 
-
-
+users:
+- default
+- name: xavki
+  shell: /bin/bash
+  sudo: [ "ALL=(ALL) ALL" ]
+  lock_passwd: false
+  passwd: $5$NcjNz0RTQpULe$XIz92/uiFDq2UPJ1hpb86yxIVYNpSyYMXPn4vC5jiF.

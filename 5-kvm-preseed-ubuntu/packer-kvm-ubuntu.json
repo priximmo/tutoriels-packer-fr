@@ -1,32 +1,31 @@
 {
   "builders": [
-      {
-      "accelerator": "kvm",
+    {
       "boot_command": [
-          "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-          "/install/vmlinuz<wait>",
-          " initrd=/install/initrd.gz<wait>",
-          " auto<wait>",
-          " console-setup/ask_detect=false<wait>",
-          " console-setup/layoutcode=us<wait>",
-          " console-setup/modelcode=pc105<wait>",
-          " debconf/frontend=noninteractive<wait>",
-          " debian-installer=fr_FR<wait>",
-          " fb=false<wait>",
-          " kbd-chooser/method=fr<wait>",
-          " keyboard-configuration/layout=FR<wait>",
-          " keyboard-configuration/variant=FR<wait>",
-          " locale=fr_FR<wait>",
-          " netcfg/get_domain={{user `domain`}}<wait>",
-          " netcfg/get_hostname={{user `hostname`}}<wait>",
-          " grub-installer/bootdev=/dev/vda<wait>",
-          " noapic<wait>",
-          " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
-          " -- <wait>",
-          " <enter><wait>"
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=fr_FR<wait>",
+        " fb=false<wait>",
+        " kbd-chooser/method=fr<wait>",
+        " keyboard-configuration/layout=FR<wait>",
+        " keyboard-configuration/variant=FR<wait>",
+        " locale=fr_FR<wait>",
+        " netcfg/get_domain={{user `domain`}}<wait>",
+        " netcfg/get_hostname={{user `hostname`}}<wait>",
+        " grub-installer/bootdev=/dev/vda<wait>",
+        " noapic<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- <wait>",
+        " <enter><wait>"
       ],
       "boot_wait": "5s",
       "disk_cache": "none",
@@ -35,54 +34,54 @@
       "disk_size": "{{user `disk_size`}}",
       "format": "qcow2",
       "headless": false,
-      "http_directory": "./",
+      "http_directory": "http/",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_target_path": "ubuntu-18.04.5-server-amd64.iso",
       "iso_url": "{{user `iso_url`}}",
       "name": "{{user `name`}}{{user `version`}}.qcow2",
       "net_device": "virtio-net",
       "output_directory": "img/{{user `name`}}{{user `version`}}",
-      "qemu_binary": "/usr/bin/qemu-system-x86_64",
       "qemuargs": [
-          [
+        [
           "-m",
           "{{user `ram`}}M"
-          ],
-          [
+        ],
+        [
           "-smp",
           "{{user `cpu`}}"
-          ]
+        ]
       ],
       "shutdown_command": "echo '{{user `ssh_password`}}' | sudo -t -S /sbin/shutdown -P now",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_timeout": "45m",
       "ssh_username": "{{user `ssh_username`}}",
       "type": "qemu"
-      }
+    }
   ],
   "provisioners": [
-      {
+    {
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
       "inline": [
-          "sudo apt update",
-          "sudo apt -qq -y install software-properties-common git ansible network-manager 2>&1 >/dev/null",
-          "sed -i s/ens3/enp1s0/g /etc/netplan/01-netcfg.yaml"
+        "sudo apt update",
+        "sudo apt -qq -y install software-properties-common git ansible network-manager 2>&1 >/dev/null",
+        "sed -i s/ens3/enp1s0/g /etc/netplan/01-netcfg.yaml"
       ],
       "type": "shell"
-      }
+    }
   ],
   "variables": {
-      "config_file": "preseed.cfg",
-      "cpu": "2",
-      "disk_size": "40000",
-      "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
-      "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.5-server-amd64.iso",
-      "name": "ubuntu",
-      "ram": "2048",
-      "ssh_password": "xavki",
-      "ssh_username": "xavki",
-      "version": "1804",
-      "domain": "local",
-      "hostname": "xavki"        
+    "config_file": "preseed.cfg",
+    "cpu": "2",
+    "disk_size": "40000",
+    "domain": "local",
+    "hostname": "xavki",
+    "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
+    "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.5-server-amd64.iso",
+    "name": "ubuntu",
+    "ram": "2048",
+    "ssh_password": "xavki",
+    "ssh_username": "xavki",
+    "version": "1804"
   }
 }
+

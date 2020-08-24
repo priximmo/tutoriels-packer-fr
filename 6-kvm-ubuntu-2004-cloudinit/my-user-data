@@ -1,0 +1,28 @@
+#cloud-config
+password: ubuntu
+ssh_pwauth: true
+chpasswd:
+  expire: false
+locale: fr_FR
+keyboard:
+  layout: fr
+  variant: fr
+storage:
+  layout:
+    name: lvm
+  config:
+    - type: disk
+      id: disk0
+      match:
+        size: largest
+    - type: partition
+      id: boot-partition
+      device: disk0
+      size: 500M
+    - type: partition
+      id: root-partition
+      device: disk0
+      size: -1
+
+
+

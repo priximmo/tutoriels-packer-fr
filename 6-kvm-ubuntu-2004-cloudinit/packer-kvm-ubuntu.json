@@ -69,7 +69,7 @@
     "ram": "2048",
     "domain": "local",
     "hostname": "xavki",
-    "iso_checksum": "97f588e8ead65ddaf238c70f970a320f8806fa239b870e9217f3d1a8f9c6c13d",
+    "iso_checksum": "1773ee50829fa9160cdef085500598e8b6e404f4e7125a7bc23005f05e021ad0",
     "iso_url": "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img",
     "name": "ubuntu",
     "version": "2004",

@@ -8,6 +8,8 @@
 <br>
 
 
+
+
 ```
 "/install/vmlinuz<wait>",									# localisation du noyau
 " auto<wait>",

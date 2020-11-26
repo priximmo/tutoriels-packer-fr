@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * les variables packer par bloc json "variables
 
 ```
@@ -15,6 +17,8 @@
 ```
 
 <br>
+
+
 * les variables la CLI -var ou -var-file
 
 ```
@@ -22,6 +26,8 @@ packer build -var 'aws_access_key=foo'
 ```
 
 <br>
+
+
 * ex : fichier de variables json
 
 ```
@@ -37,6 +43,8 @@ packer build -var 'aws_access_key=foo'
 
 
 <br>
+
+
 * pour les utiliser
 
 ```
@@ -48,6 +56,8 @@ user `mavariable`
 Rq : ausi variables issues de vault, consul, aws_secretmanager
 
 <br>
+
+
 * packer inspect pour y voir plus clair
 
 ```
@@ -55,6 +65,8 @@ packer inspect ubuntu.json
 ```
 
 <br>
+
+
 * sensitive variables > logs
 
 ```
@@ -71,6 +83,8 @@ packer inspect ubuntu.json
 ```
 
 <br>
+
+
 * poser des conditions
 
 ```
